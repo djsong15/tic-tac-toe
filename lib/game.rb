@@ -11,19 +11,35 @@ class Game
     @players = [player1, player2]
     @board = board
     @win_cons = [
-      ['0,0', '0,1', '0,2'], ['1,0', '1,1', '1,2'], ['2,0', '2,1', '2,2'],
-      ['0,0', '1,0', '2,0'], ['0,1', '1,1', '2,1'], ['0,2', '1,2', '2,2'],
-      ['0,0', '1,1', '2,2'], ['0,2', '1,1', '2,0']
+      [0, 1, 2], [3, 4, 5], [6, 7, 8],
+      [0, 3, 6], [1, 4, 7], [2, 5, 8],
+      [0, 4, 8], [2, 4, 6]
     ]
     @turn = player1.symbol
+    @winner = ''
   end
 
   def play_game
-    puts "Player 1 is #{@players[0].symbol}, Player 2 is #{@players[1].symbol}"
-    board.display
-    puts "#{@turn}, pick your spot \n"
-    spot = gets.chomp
-    board.update(spot, @turn)
+    while @winner == ''
+      board.display
+      puts "\n#{@turn}, pick your spot\n"
+      spot = gets.chomp
+      board.update(spot, @turn)
+      @winner = @turn if check_win?(@turn) == true
+      @turn = @turn == 'X' ? 'O' : 'X'
+    end
+    puts "#{@winner} wins!"
   end
-  
+
+  def check_win?(symbol)
+    flat_board = @board.grid.flatten
+    @win_cons.each do |con|
+      return true if check_win_each?(flat_board, con, symbol)
+    end
+  end
+
+  def check_win_each?(f_b, con, sym)
+    f_b[con[0]] == sym &&
+      f_b[con[0]] == f_b[con[1]] && f_b[con[0]] == f_b[con[2]]
+  end
 end
