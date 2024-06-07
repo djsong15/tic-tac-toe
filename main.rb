@@ -1,9 +1,28 @@
 # frozen_string_literal: true
 
 require './lib/game'
+require './lib/player'
+require './lib/board'
 
-board = Board.new
+# Methods for starting tic-tac-toe
+module StartGame
+  def self.tic_tac_toe
+    Game.new(*select_symbols, Board.new).play_game
+  end
 
-game = Game.new(nil, nil, board)
+  def self.select_symbols
+    selection_made = false
+    until selection_made
+      puts "Player 1, select your symbol \n X or O"
+      selection = gets.chomp
+      next unless selection.upcase == 'X' || selection.upcase == 'O'
 
-puts game.display_board
+      player_one = Player.new(selection.upcase)
+      player_two = Player.new(selection.upcase == 'X' ? 'O' : 'X')
+      selection_made = true
+    end
+    [player_one, player_two]
+  end
+end
+
+StartGame.tic_tac_toe
