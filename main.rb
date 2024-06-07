@@ -7,7 +7,9 @@ require './lib/board'
 # Methods for starting tic-tac-toe
 module StartGame
   def self.tic_tac_toe
-    Game.new(*select_symbols, Board.new).play_game
+    players = select_symbols
+    puts "Player 1 is #{players[0].symbol}, Player 2 is #{players[1].symbol}\n"
+    Game.new(*players, Board.new).play_game
   end
 
   def self.select_symbols
