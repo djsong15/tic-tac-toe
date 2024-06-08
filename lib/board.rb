@@ -28,11 +28,10 @@ class Board
   def update(spot, symbol)
     r = (spot.to_i - 1) / 3
     c = (spot.to_i - 1) % 3
-    if @grid[r][c] == 'X' || @grid[r][c] == 'O'
-      puts 'Taken, pick another spot'
+    if spot.to_i > 9 || %w[X O].include?(@grid[r][c])
+      puts "Taken, #{symbol} pick another spot"
       update(gets.chomp, symbol)
-    else
-      @grid[r][c] = symbol
     end
+    @grid[r][c] = symbol
   end
 end
