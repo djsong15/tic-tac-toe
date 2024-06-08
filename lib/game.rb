@@ -23,12 +23,14 @@ class Game
     while @winner == ''
       board.display
       puts "\n#{@turn}, pick your spot\n"
-      spot = gets.chomp
-      board.update(spot, @turn)
+      board.update(gets.chomp, @turn)
+      break if check_tie? == true
+
       @winner = @turn if check_win?(@turn) == true
       @turn = @turn == 'X' ? 'O' : 'X'
     end
-    puts "#{@winner} wins!"
+    board.display
+    puts @winner != '' ? "#{@winner} wins!" : 'It\'s a tie'
   end
 
   def check_win?(symbol)
@@ -41,5 +43,9 @@ class Game
   def check_win_each?(f_b, con, sym)
     f_b[con[0]] == sym &&
       f_b[con[0]] == f_b[con[1]] && f_b[con[0]] == f_b[con[2]]
+  end
+
+  def check_tie?
+    @board.grid.flatten.all? { |spot| %w[X O].include?(spot) == true }
   end
 end
