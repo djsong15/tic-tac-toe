@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'colorize'
+
 require './lib/game'
 require './lib/player'
 require './lib/board'
@@ -8,14 +10,14 @@ require './lib/board'
 module StartGame
   def self.tic_tac_toe
     players = select_symbols
-    puts "Player 1 is #{players[0].symbol}, Player 2 is #{players[1].symbol}\n"
+    puts "Player 1 is #{players[0].symbol}, Player 2 is #{players[1].symbol}\n".colorize(:magenta)
     Game.new(*players, Board.new).play_game
   end
 
   def self.select_symbols
     selection_made = false
     until selection_made
-      puts "Player 1, select your symbol \n X or O"
+      puts "Player 1, select your symbol \n X or O".colorize(:cyan)
       selection = gets.chomp
       next unless selection.upcase == 'X' || selection.upcase == 'O'
 

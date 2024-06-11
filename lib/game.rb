@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'colorize'
+
 require_relative 'board'
 require_relative 'player'
 
@@ -30,7 +32,7 @@ class Game
       @turn = @turn == 'X' ? 'O' : 'X'
     end
     board.display
-    puts @winner != '' ? "#{@winner} wins!" : 'It\'s a tie'
+    puts @winner != '' ? "#{@winner} wins!".colorize(:yellow) : 'It\'s a tie'
   end
 
   def check_win?(symbol)
