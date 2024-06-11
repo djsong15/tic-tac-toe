@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'colorize'
+
 # Board class contains initializes tic tac toe board
 class Board
   attr_accessor :grid
@@ -18,10 +20,10 @@ class Board
       row_str = ' '
       row.each_with_index do |col, c_i|
         row_str += "#{col} "
-        row_str += '| ' if c_i < 2
+        row_str += '| '.colorize(:green) if c_i < 2
       end
       puts row_str
-      puts '-----------' if r_i < 2
+      puts '-----------'.colorize(:green) if r_i < 2
     end
   end
 
