@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Boar class contains initializes tic tac toe board
+# Board class contains initializes tic tac toe board
 class Board
   attr_accessor :grid
 
